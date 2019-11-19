@@ -3,6 +3,7 @@
 NOTES
 test.py
 prelude.py
+nginx.conf
 *.vim
 *.swp
 *.swo
