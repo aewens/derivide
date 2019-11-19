@@ -1,0 +1,61 @@
+{
+  "prefetchRate": 5,
+  "maxThreads": null,
+  "disableRoutePrefixing": false,
+  "outputFileRate": 100,
+  "extensions": [
+    ".js",
+    ".jsx"
+  ],
+  "minLoadTime": 200,
+  "disablePreload": false,
+  "disableRuntime": false,
+  "preloadPollInterval": 300,
+  "productionSourceMaps": false,
+  "entry": "index.js",
+  "plugins": [
+    [
+      "/root/proto/derivide/client/node_modules/react-static-plugin-source-filesystem/node.api.js",
+      {
+        "location": "/root/proto/derivide/client/src/pages"
+      }
+    ],
+    "/root/proto/derivide/client/node_modules/react-static-plugin-reach-router/browser.api.js",
+    "/root/proto/derivide/client/node_modules/react-static-plugin-sitemap/dist/node.api.js",
+    "/root/proto/derivide/client"
+  ],
+  "paths": {
+    "ROOT": "/root/proto/derivide/client",
+    "SRC": "/root/proto/derivide/client/src",
+    "DIST": "/root/proto/derivide/client/dist",
+    "ASSETS": "/root/proto/derivide/client/dist",
+    "PLUGINS": "/root/proto/derivide/client/plugins",
+    "TEMP": "/root/proto/derivide/client/tmp",
+    "ARTIFACTS": "/root/proto/derivide/client/artifacts",
+    "PUBLIC": "/root/proto/derivide/client/public",
+    "NODE_MODULES": "/root/proto/derivide/client/node_modules",
+    "EXCLUDE_MODULES": "/root/proto/derivide/client/node_modules",
+    "PACKAGE": "/root/proto/derivide/client/package.json",
+    "HTML_TEMPLATE": "/root/proto/derivide/client/dist/index.html",
+    "STATIC_DATA": "/root/proto/derivide/client/dist/staticData"
+  },
+  "siteRoot": "/",
+  "basePath": "",
+  "publicPath": "/",
+  "assetsPath": "",
+  "extractCssChunks": false,
+  "inlineCss": false,
+  "babelExcludes": [],
+  "devServer": {
+    "host": "localhost",
+    "port": 3000
+  },
+  "terser": {
+    "terserOptions": {
+      "mangle": {},
+      "parse": {},
+      "compress": {},
+      "output": {}
+    }
+  }
+}
