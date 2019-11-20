@@ -1,3 +1,3 @@
 #!/bin/bash
 
-uvicorn app:app --port $1 --reload
+env/bin/uvicorn app:app --port $1 --reload
