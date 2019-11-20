@@ -11,16 +11,16 @@ class DerivideFlatFile:
         self.path = Path(path).resolve()
         self.mode = mode
         self.data = dict()
-
+        self._ref = None
 
     def read(self):
-        with open(self.path, "rb") as flatfile:
-            raw_data = flatfile.read()
-            if self.mode == "json":
-                self.data = json_loads(raw_data.decode())
+        self._ref.seek(0)
+        raw_data = self._ref.read()
+        if self.mode == "json":
+            self.data = json_loads(raw_data.decode())
 
-            elif self.mode == "pickle":
-                self.data = pkl_loads(raw_data)
+        elif self.mode == "pickle":
+            self.data = pkl_loads(raw_data)
 
         return self.data
 
@@ -28,23 +28,27 @@ class DerivideFlatFile:
         if data is None:
             data = self.data
 
-        with open(self.path, "wb") as flatfile:
-            if self.mode == "json":
-                encoded = json_dumps(data).encode()
+        if self.mode == "json":
+            encoded = json_dumps(data).encode()
 
-            elif self.mode == "pickle":
-                encoded = pkl_dumps(data)
+        elif self.mode == "pickle":
+            encoded = pkl_dumps(data)
 
-            flatfile.write(encoded)
+        self._ref.seek(0)
+        self._ref.write(encoded)
+        self._ref.truncate()
 
     def start(self):
+        self._ref = open(self.path, "r+b")
         if not self.path.exists():
             self.write()
 
-        self.read()
+        else:
+            self.read()
 
     def save(self):
         self.write()
+        self._ref.close()
 
     def all(self):
         return self.read()
