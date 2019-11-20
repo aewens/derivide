@@ -44,9 +44,9 @@ async def get_db():
     with db:
         return db.all()
 
-@app.get("/api/db/get")
-async def get_db(path: str):
-    entries = tuple(path.split("."))
+@app.post("/api/db/get")
+async def get_db(entry: Entry):
+    entries = tuple(entry.path.split("."))
     with db:
         return db.get(*entries)
 

@@ -1,6 +1,5 @@
 from json import dumps as json_dumps, loads as json_loads
 from pickle import dumps as pkl_dumps, loads as pkl_loads
-
 from pathlib import Path
 
 modes = ["json", "pickle"]
@@ -12,6 +11,12 @@ class DerivideFlatFile:
         self.mode = mode
         self.data = dict()
         self._ref = None
+
+        self._load()
+
+    def _load(self):
+        self.start()
+        self._ref.close()
 
     def read(self):
         self._ref.seek(0)
@@ -39,8 +44,10 @@ class DerivideFlatFile:
         self._ref.truncate()
 
     def start(self):
+        exists = self.path.exists()
+        self.path.touch(mode=0o700)
         self._ref = open(self.path, "r+b")
-        if not self.path.exists():
+        if not exists:
             self.write()
 
         else:
@@ -50,8 +57,11 @@ class DerivideFlatFile:
         self.write()
         self._ref.close()
 
-    def all(self):
+    def reload():
         return self.read()
+
+    def all(self):
+        return self.data
 
     def get(self, *entry_path):
         pointer = self.data
