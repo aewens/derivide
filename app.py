@@ -13,6 +13,9 @@ app = FastAPI()
 
 class Entry(BaseModel):
     path: str
+
+class PutEntry(Entry):
+    path: str
     value: Union[KeyedDict, list, str, bool, int, float]
 
 @app.get("/api")
@@ -41,8 +44,20 @@ async def get_db():
     with db:
         return db.all()
 
-@app.post("/api/db")
-async def put_db(entry: Entry):
+@app.get("/api/db/get")
+async def get_db(path: str):
+    entries = tuple(path.split("."))
+    with db:
+        return db.get(*entries)
+
+@app.post("/api/db/put")
+async def put_db(entry: PutEntry):
     entries = tuple(entry.path.split("."))
     with db:
         return db.put(*entries, value=entry.value)
+
+@app.delete("/api/db/drop")
+async def drop_db(entry: Entry):
+    entries = tuple(entry.path.split("."))
+    with db:
+        return db.drop(*entries)
