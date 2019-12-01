@@ -4,6 +4,7 @@ NOTES
 test.py
 prelude.py
 nginx.conf
+static
 *.vim
 *.swp
 *.swo
